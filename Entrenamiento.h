@@ -1,3 +1,5 @@
+#ifndef ENTRENAMIENTO_H
+#define ENTRENAMIENTO_H
 #include "Clase.h"
 
 class Entrenamiento : public Clase
@@ -22,4 +24,6 @@ class Entrenamiento : public Clase
         ~Entrenamiento();
 };
 
+
+#endif
 

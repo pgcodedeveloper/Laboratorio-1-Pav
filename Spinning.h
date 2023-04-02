@@ -1,3 +1,5 @@
+#ifndef SPINNING_H
+#define SPINNING_H
 #include "Clase.h"
 
 class Spinning : public Clase
@@ -22,3 +24,4 @@ class Spinning : public Clase
         ~Spinning();
 };
 
+#endif

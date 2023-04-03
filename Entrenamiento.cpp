@@ -10,7 +10,7 @@ Entrenamiento::Entrenamiento(int id, string nom, Turno t, bool enR) : Clase(id, 
 };
 
 Entrenamiento::Entrenamiento(const Entrenamiento &e): Clase(e){
-    this->enRambla = e.enRambla;
+    this->enRambla = e.enRambla; 
 };
 
 bool Entrenamiento::getEnRambla(){

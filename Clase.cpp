@@ -1,5 +1,5 @@
 #include "Clase.h"
-
+//Probando
 Clase::Clase(int id, string nom, Turno t)
 {
     this->Id = id;

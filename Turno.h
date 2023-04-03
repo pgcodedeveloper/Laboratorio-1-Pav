@@ -1,3 +1,5 @@
+#ifndef TURNO_H
+#define TURNO_H
 #include "string"
 
 using namespace std;
@@ -25,3 +27,4 @@ public:
 };
 
 
+#endif

@@ -1,3 +1,5 @@
+#ifndef CLASE_H
+#define CLASE_H
 #include "string"
 #include "Turno.h"
 
@@ -31,3 +33,4 @@ public:
 };
 
 
+#endif

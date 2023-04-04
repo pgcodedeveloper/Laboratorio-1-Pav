@@ -1,5 +1,4 @@
 #include "Clase.h"
-//de vuelta
 
 Clase::Clase(){
     

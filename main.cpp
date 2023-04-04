@@ -1,6 +1,11 @@
 #include "iostream"
 #include "DtSocio.h"
 #include "Clase.h"
+#include "Spinning.h"
+#include "Entrenamiento.h"
+#include "DtClase.h"
+#include "DtEntrenamiento.h"
+#include "DtSpinning.h"
 
 //Constantes de los arreglos
 #define MAX_SOCIOS 20
@@ -26,7 +31,8 @@ void menuAgregarSocio();
 void menuListarSocios();
 void ListarSocios();
 //No terminada
-void agregarClase();
+void agregarClase(DtClase & clase);
+void menuAgregarClase();
 
 void menuAgregarSocio(){
     system("clear");
@@ -88,7 +94,7 @@ void ListarSocios(){
 void agregarSocio(string ci, string nombre){
     int i = 0;
     //Recorro la estructura de socios para ver que no existan dos iguales
-    while (i<colSocios.tope && colSocios.s[i]->getNombre() != nombre)
+    while (i<colSocios.tope && colSocios.s[i]->getCI() != ci)
     {
         i++;
     }
@@ -100,6 +106,121 @@ void agregarSocio(string ci, string nombre){
     }
     else{
         throw invalid_argument("Ya existe un Socio con ese nombre\n");
+    }
+    
+}
+
+void menuAgregarClase(){
+    system("clear");
+    cout << "+--------------------+" << endl;
+    cout << "|  3. Agregar Clase  |" << endl;
+    cout << "+--------------------+" << endl;
+    // Funcion para agregar un nueva Inscripción
+    try
+    {
+        int id, turno, tipo, cntB, enR;
+        bool enRambla;
+        string nombre;
+        Turno t;
+        /* code */
+        cout << "Id de la Clase: ";
+        cin >> id;
+        cout << "Nombre de la Clase: ";
+        cin >> nombre;
+        cout << "Turno?\n1.Manana\n2.Tarde\n3.Noche\nOPCION: ";
+        cin >> turno;
+
+        switch (turno)
+        {
+            case 1:
+                t = MANANA;
+                break;
+        
+            case 2:
+                t = TARDE;
+                break;
+            case 3:
+                t = NOCHE;
+                break;
+        }
+
+        cout << "Tipo?\n1.Spinning\n2.Entrenamiento\nOPCION: ";
+        cin >> tipo;
+        DtSpinning sp;
+        DtEntrenamiento en;
+        switch (tipo)
+        {
+            case 1:
+                cout << "Cantidad de Bicicletas: ";
+                cin >> cntB;
+                if(cntB > 50){
+                    throw invalid_argument("La cantidad de bicicletas debe ser a lo sumo 50!\n");
+                }
+                sp = DtSpinning(id,nombre,t,cntB);
+                agregarClase(sp);
+                break;
+            case 2:
+                cout << "¿Es en Rambla? Si = 1 o No = 2: ";
+                cin >> enR;
+                if(enR == 1){
+                    enRambla = true;
+                }
+                else if(enR == 2){
+                    enRambla = false;
+                }
+                else{
+                    throw invalid_argument("Opcion no valida!\n");
+                }
+                en = DtEntrenamiento(id,nombre,t,enRambla);
+                agregarClase(en);
+        }
+        cout << "Clase agregada correctamente !!" << endl;
+        system("pause");
+    }
+    catch(invalid_argument& e)
+    {
+        cout << e.what() << endl;
+        system("sleep 5");
+    }
+}
+
+void agregarClase(DtClase& clase){
+    try
+    {
+        int i = 0;
+        DtSpinning& sp = dynamic_cast<DtSpinning&>(clase);
+        while (i < colClases.tope && colClases.c[i]->getId() != sp.getId())
+        {
+            i++;
+        }
+        if(i == colClases.tope){
+
+            Spinning* spinning = new Spinning(sp.getId(),sp.getNombre(),sp.getTurno(),sp.getCantBic());
+            colClases.c[colClases.tope]=spinning;
+            colClases.tope++;
+        }
+        else{
+            throw invalid_argument("Ya existe una clase Spinning con ese ID!\n");
+        }
+    }
+    catch(bad_cast)
+    {
+        try{
+            int i = 0;
+            DtEntrenamiento& en = dynamic_cast<DtEntrenamiento&>(clase);
+            while (i < colClases.tope && colClases.c[i]->getId() != en.getId())
+            {
+                i++;
+            }
+            if(i == colClases.tope){
+                Entrenamiento* entrenamiento= new Entrenamiento(en.getId(),en.getNombre(),en.getTurno(),en.getEnRambla());
+                colClases.c[colClases.tope]=entrenamiento;
+                colClases.tope++;
+            }
+            else{
+                throw invalid_argument("Ya existe una clase Entrenamiento con ese ID!\n");
+            }
+        } catch(bad_cast){}
     }
     
 }
@@ -136,12 +257,7 @@ int main(){
                 menuListarSocios();
                 break;
             case 3:
-                system("clear");
-                cout << "+--------------------------+" << endl;
-                cout << "|  3. Agregar Inscripcion  |" << endl;
-                cout << "+--------------------------+" << endl;
-                // Funcion para agregar un nueva Inscripción
-                system("sleep 5");
+                menuAgregarClase();
                 break;
             case 4:
                 system("clear");

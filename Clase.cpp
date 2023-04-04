@@ -1,5 +1,9 @@
 #include "Clase.h"
 //de vuelta
+
+Clase::Clase(){
+    
+}
 Clase::Clase(int id, string nom, Turno t)
 {
     this->Id = id;

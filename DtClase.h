@@ -26,7 +26,7 @@ class DtClase
         void setId(int id);
         void setNombre(string nom);
         void setTurno(Turno t);
-        ~DtClase();
+        virtual ~DtClase();
 };
 
 

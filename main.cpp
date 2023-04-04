@@ -88,7 +88,7 @@ void ListarSocios(){
 void agregarSocio(string ci, string nombre){
     int i = 0;
     //Recorro la estructura de socios para ver que no existan dos iguales
-    while (i<colSocios.tope && colSocios.s[i]->getNombre() != nombre)
+    while (i<colSocios.tope && colSocios.s[i]->getCI() != ci)
     {
         i++;
     }

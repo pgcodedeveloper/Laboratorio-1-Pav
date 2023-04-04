@@ -1,5 +1,5 @@
-main: main.o
-	g++ main.o -o sistema
+main: main.o DtSocio.o
+	g++ main.o DtSocio.o -o sistema
 
 Clase.o: Clase.cpp
 

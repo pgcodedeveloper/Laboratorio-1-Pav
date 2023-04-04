@@ -4,7 +4,7 @@ DtSocio::DtSocio(){
 
 };
 
-DtSocio::DtSocio(int ci, string nom)
+DtSocio::DtSocio(string ci, string nom)
 {
     this->CI = ci;
     this->Nombre = nom;
@@ -15,7 +15,7 @@ DtSocio::DtSocio(const DtSocio & dt){
     this->Nombre = dt.Nombre;
 };
 
-int DtSocio::getCI(){
+string DtSocio::getCI(){
     return this->CI;
 };
 
@@ -23,7 +23,7 @@ string DtSocio::getNombre(){
     return this->Nombre;
 };
 
-void DtSocio::setCI(int ci){
+void DtSocio::setCI(string ci){
     this->CI = ci;
 };
 

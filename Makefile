@@ -1,5 +1,5 @@
-main: main.o DtSocio.o DtClase.o DtEntrenamiento.o DtSpinning.o Spinning.o Entrenamiento.o Clase.o
-	g++ main.o DtSocio.o DtClase.o DtEntrenamiento.o DtSpinning.o Spinning.o Entrenamiento.o Clase.o -o sistema
+main: main.o DtSocio.o DtClase.o DtEntrenamiento.o DtSpinning.o Spinning.o Entrenamiento.o Clase.o Fecha.o Socio.o Inscripcion.o
+	g++ main.o DtSocio.o DtClase.o DtEntrenamiento.o DtSpinning.o Spinning.o Entrenamiento.o Clase.o Fecha.o Socio.o Inscripcion.o -o sistema
 
 Clase.o: Clase.cpp
 
@@ -16,6 +16,10 @@ DtClase.o: DtClase.cpp
 DtSpinning.o: DtSpinning.cpp
 
 DtEntrenamiento.o: DtEntrenamiento.cpp
+
+Socio.o: Socio.cpp
+
+Inscripcion.o: Inscripcion.cpp
 
 main.o: main.cpp
 

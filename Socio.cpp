@@ -44,3 +44,22 @@ void Socio::agregarInscripcion(Inscripcion * ins){
     this->ins[this->cantInsc] = ins;
     this->cantInsc++;
 };
+
+//Se evalua si existe ya una inscripcion del socio al id proporcionado
+bool Socio::existeInscripcion(int id){
+    int i = 0;
+    cout << this->cantInsc << endl;
+    while (i < this->cantInsc && !this->ins[i]->isEquals(id))
+    {
+        i++;
+    }
+    cout << "i: " << i << "cant: " << this->cantInsc << endl;
+
+    if(i == this->cantInsc){
+        return false;
+    }
+    else{
+        return true;
+    }
+    
+}

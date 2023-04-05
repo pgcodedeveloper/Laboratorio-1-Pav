@@ -18,6 +18,7 @@ class Fecha
         int getDia();
         int getMes();
         int getAnio();
+        void toString();
         void setDia(int d);
         void setMes(int m);
         void setAnio(int a);

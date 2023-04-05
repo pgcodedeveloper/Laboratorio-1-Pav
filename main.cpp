@@ -12,7 +12,6 @@
 //Constantes de los arreglos
 #define MAX_SOCIOS 20
 #define MAX_CLASES 20
-#define MAX_INSCRIPCIONES 30
 using namespace std;
 
 //Colecciones Globales
@@ -27,12 +26,6 @@ struct Clases
     Clase* c[MAX_CLASES];
     int tope = 0;
 } colClases;
-
-struct Inscripciones
-{   
-    Inscripcion* ins[MAX_INSCRIPCIONES];
-    int tope = 0;
-} colInscripciones;
 
 
 void agregarSocio(string ci, string nombre);
@@ -327,38 +320,43 @@ void menuAgregarInsc(){
         system("pause");
     }
 
-    
-    system("pause");
 }
 
 void agregarInscripcion(string ciSocio, int idClase, Fecha fecha){
-    int i,j = 0;
-    while (colSocios.s[i]->getCI() != ciSocio)
+    int i = 0;
+    while (i < colSocios.tope && colSocios.s[i]->getCI() != ciSocio)
     {
         i++;
     }
-    while (colClases.c[j]->getId() != idClase)
+    int j = 0;
+    while (j < colClases.tope && colClases.c[j]->getId() != idClase)
     {
         j++;
     }
+    cout << "i:" << i << "j:" << j << endl;
     //Si i = al tope de la coleccion de socios, no existe ese socio
-    if(i == colSocios.tope){
+    if(i == colSocios.tope && j == colClases.tope){
+        throw invalid_argument("No existen la clase ni el socio indicados!!\n");
+    }
+    else if(i == colSocios.tope){
         throw invalid_argument("No existe el socio con la cedula indicada!!\n");
     }
     else if(j == colClases.tope){
         throw invalid_argument("No existe la clase con el id indicado!!\n");
     }
-    else if(colClases.c[i]->cupo() == 0){
-        throw invalid_argument("La clase indicada no tiene cupo suficiente!!\n");
+    else if(colSocios.s[i]->existeInscripcion(idClase)){
+        throw invalid_argument("Este socio ya esta inscripto en esa clase!!\n");
     }
-    //Falta evaluar que no exista una inscripcion de ese socio a esa clase
-    
-    Inscripcion * insc = new Inscripcion(fecha);
-    insc->agregarInscripcion(colClases.c[j]);
-    colSocios.s[i]->agregarInscripcion(insc);
-    cout << "Inscripcion agregada correctamente" << endl;
-    //insc->getClase(i);
-    system("pause");
+    else{
+        cout << colClases.c[j]->getId() << endl;
+        cout << colSocios.s[i]->getCI() << endl;
+        Inscripcion * insc = new Inscripcion(fecha, colClases.c[j]);
+        colSocios.s[i]->agregarInscripcion(insc);
+        cout << "Inscripcion agregada correctamente" << endl;
+        insc->getFecha().toString();
+        system("pause");
+    }
+    //Falta evaluar el tema de los cupos.
 }
 
 int main(){
@@ -423,7 +421,7 @@ int main(){
             case 8:
                 system("clear");
                 cout << "+------------+" << endl;
-                cout << "|  6. Salir  |" << endl;
+                cout << "|  8. Salir  |" << endl;
                 cout << "+------------+" << endl;
                 break;
             default:

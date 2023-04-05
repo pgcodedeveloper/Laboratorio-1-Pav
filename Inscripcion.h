@@ -15,16 +15,16 @@ class Inscripcion
         Fecha f;
         //pseudoatributos
         Clase * cl[MAX_CLASES_INSC];
-        int cantClases;
+        int cantClases = 0;
     public:
         Inscripcion();
-        Inscripcion(Fecha f);
+        Inscripcion(Fecha f, Clase *c);
         Fecha getFecha();
         void setFecha(Fecha f);
         ~Inscripcion();
 
         int getCantClases();
-        void getClase(int i);
+        bool isEquals(int id);
         void agregarInscripcion(Clase *c);
 };
 

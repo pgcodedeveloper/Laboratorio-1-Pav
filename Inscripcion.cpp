@@ -4,10 +4,11 @@ Inscripcion::Inscripcion(){
 
 };
 
-Inscripcion::Inscripcion(Fecha f)
+Inscripcion::Inscripcion(Fecha f, Clase *c)
 {
     this->f = f;
-    this->cantClases = 0;
+    this->cl[this->cantClases] = c;
+    this->cantClases++;
 };
 
 Fecha Inscripcion::getFecha(){
@@ -32,8 +33,19 @@ void Inscripcion::agregarInscripcion(Clase *c){
     this->cantClases++;
 };
 
-void Inscripcion::getClase(int i){
-    cout << "Id Clase: " << this-cl[i]->getId() << endl;
-    cout << "Nombre: " << this->cl[i]->getNombre() << endl;
+//Se evalua si en la coleccion de las clases ya existe una clase con el id proporcionado para luego devolver el resultado a la clase socio
+bool Inscripcion::isEquals(int id){
+    int i = 0;
+    while (i < this->cantClases && this->cl[i]->getId() != id)
+    {
+        i++;
+    }
+
+    if(i == this->cantClases){
+        return false;
+    }
+    else {
+        return true;
+    }
 }
 

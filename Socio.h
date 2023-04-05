@@ -32,6 +32,7 @@ class Socio
 
         int getCantInsct();
         void agregarInscripcion(Inscripcion * ins);
+        bool existeInscripcion(int id);
 };
 
 

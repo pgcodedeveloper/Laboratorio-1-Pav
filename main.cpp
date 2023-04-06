@@ -1,14 +1,13 @@
 #include "iostream"
 #include "DtSocio.h"
 #include "Socio.h"
-#include "Inscripcion.h"
 #include "Clase.h"
 #include "Spinning.h"
 #include "Entrenamiento.h"
 #include "DtClase.h"
 #include "DtEntrenamiento.h"
 #include "DtSpinning.h"
-
+#include "Inscripcion.h"
 
 //Constantes de los arreglos
 #define MAX_SOCIOS 20
@@ -105,7 +104,6 @@ void agregarSocio(string ci, string nombre){
     {
         i++;
     }
-    
     //Si llego al final de la estructura creo un nuevo Socio
     if(i == colSocios.tope){
         Socio * s = new Socio(ci,nombre);
@@ -351,6 +349,7 @@ void agregarInscripcion(string ciSocio, int idClase, Fecha fecha){
         throw invalid_argument("Este socio ya esta inscripto en esa clase!!\n");
     }
     else{
+
         /*cout << colClases.c[j]->getId() << endl;
         cout << colSocios.s[i]->getCI() << endl;
         cout << "Cantidad de inscriptos: " << endl;
@@ -370,6 +369,13 @@ void agregarInscripcion(string ciSocio, int idClase, Fecha fecha){
             throw invalid_argument("No hay más cupos disponibles para esta clase :(");
         } 
         
+        /*cout << colClases.c[j]->getId() << endl;
+        cout << colSocios.s[i]->getCI() << endl;
+        Inscripcion * insc = new Inscripcion(fecha, colClases.c[j]);
+        colSocios.s[i]->agregarInscripcion(insc);
+        cout << "Inscripcion agregada correctamente" << endl;
+        insc->getFecha().toString();
+        system("pause");*/
     }
     //Falta evaluar el tema de los cupos.
 }
@@ -382,7 +388,9 @@ int main(){
     system("pause");
     int opcion = 0;
     do{
-        //system("clear");
+
+        system("clear");
+
         cout << "+--------------------------+" << endl;
         cout << "|   Opciones disponibles   |" << endl;
         cout << "+--------------------------+" << endl;

@@ -42,6 +42,7 @@ void Clase::setNombre(string nom){
 void Clase::setTurno(Turno t){
     this->turno = t;
 };
+
 void Clase::agregarSocioClase(Socio * s){
     this->so[this->cantSocios] = s;
     this->cantSocios++;
@@ -49,4 +50,5 @@ void Clase::agregarSocioClase(Socio * s){
 int Clase::getCantSociosClase(){
     return this->cantSocios;
 }
+
 

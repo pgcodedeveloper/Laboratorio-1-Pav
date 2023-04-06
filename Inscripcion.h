@@ -1,6 +1,5 @@
 #ifndef INSCRIPCION_H
 #define INSCRIPCION_H
-#define MAX_SOCIOS_INSC 20
 #define MAX_CLASES_INSC 20
 #include "iostream"
 #include "Fecha.h"
@@ -23,11 +22,13 @@ class Inscripcion
         Inscripcion(Fecha f, Clase *c);
         Fecha getFecha();
         void setFecha(Fecha f);
+        void imprimirClase();
         ~Inscripcion();
 
         int getCantClases();
         bool isEquals(int id);
         void agregarInscripcion(Clase *c);
+        bool eliminarInscripcion(int idClase);
 };
 
 #endif

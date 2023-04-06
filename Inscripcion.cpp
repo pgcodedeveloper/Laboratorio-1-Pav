@@ -49,3 +49,27 @@ bool Inscripcion::isEquals(int id){
     }
 }
 
+void Inscripcion::imprimirClase(){
+    //cout << this->getCantClases() << endl;
+    for (int i = 0; i < this->cantClases; i++)
+    {
+        cout << "Id Clase: " << this->cl[i]->getId() << endl;
+        cout << "Nombre de la Clase: " << this->cl[i]->getNombre() << endl;
+        cout << endl;
+    }
+    
+}
+
+bool Inscripcion::eliminarInscripcion(int idClase){
+    bool isDelete = false;
+    for(int i = 0; i < this->cantClases; i++){
+        if (this->cl[i]->getId() == idClase){
+            this->cl[i]=this->cl[this->cantClases-1];
+            this->cl[this->cantClases-1]=NULL;
+            delete this->cl[this->cantClases-1];
+            this->cantClases--;
+            isDelete = true;
+        }
+    }
+    return isDelete;
+}

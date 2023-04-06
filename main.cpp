@@ -38,6 +38,10 @@ void menuListarClases();
 void ListadoClases();
 void agregarInscripcion(string ciSocio, int idClase, Fecha fecha);
 void menuAgregarInsc();
+void menuListarInsc();
+void ListadoInsc(string ci);
+void borrarInscripcion(string ciSocio, int idClase);
+void menuBorrarInscripcion();
 
 void menuAgregarSocio(){
     system("clear");
@@ -267,6 +271,7 @@ void ListadoClases(){
                     cout << "Turno Clase: NOCHE" << endl;
                 }
                 cout << "Tipo: Spinning" << endl;
+                cout << "Cupo: " << sp->cupo() << endl;
             }
             else if(Entrenamiento* en = dynamic_cast<Entrenamiento*>(colClases.c[i])){
                 cout << "Id Clase: " << en->getId() << endl;
@@ -280,6 +285,7 @@ void ListadoClases(){
                     cout << "Turno Clase: NOCHE" << endl;
                 }
                 cout << "Tipo: Entrenamiento" << endl;
+                cout << "Cupo: " << en->cupo() << endl;
             }
         }
         cout << endl;
@@ -334,7 +340,7 @@ void agregarInscripcion(string ciSocio, int idClase, Fecha fecha){
     {
         j++;
     }
-    cout << "i:" << i << "j:" << j << endl;
+
     //Si i = al tope de la coleccion de socios, no existe ese socio
     if(i == colSocios.tope && j == colClases.tope){
         throw invalid_argument("No existen la clase ni el socio indicados!!\n");
@@ -350,34 +356,140 @@ void agregarInscripcion(string ciSocio, int idClase, Fecha fecha){
     }
     else{
 
-        /*cout << colClases.c[j]->getId() << endl;
-        cout << colSocios.s[i]->getCI() << endl;
-        cout << "Cantidad de inscriptos: " << endl;
-        cout << colClases.c[j]->getCantSociosClase() << endl;*/
-
         // Chequear si la clase tiene cupos 
-        if(colClases.c[j]->getCantSociosClase() < colClases.c[j]->cupo()){
+        if(colClases.c[j]->cupo() > 0){
+            colClases.c[j]->agregarSocio();
             Inscripcion * insc = new Inscripcion(fecha, colClases.c[j]);
-            Socio * soc = new Socio(colSocios.s[i]->getCI(), colSocios.s[i]->getNombre());
             colSocios.s[i]->agregarInscripcion(insc);
-            colClases.c[j]->agregarSocioClase(soc);
             cout << "Inscripcion agregada correctamente" << endl;
+            cout << "Fecha de la inscripcion: ";
             insc->getFecha().toString();
             system("pause");
         }
         else{
-            throw invalid_argument("No hay más cupos disponibles para esta clase :(");
-        } 
-        
-        /*cout << colClases.c[j]->getId() << endl;
-        cout << colSocios.s[i]->getCI() << endl;
-        Inscripcion * insc = new Inscripcion(fecha, colClases.c[j]);
-        colSocios.s[i]->agregarInscripcion(insc);
-        cout << "Inscripcion agregada correctamente" << endl;
-        insc->getFecha().toString();
-        system("pause");*/
+            throw invalid_argument("No hay mas cupos disponibles para esta clase :(");
+        }
     }
-    //Falta evaluar el tema de los cupos.
+}
+
+void menuListarInsc(){
+    system("clear");
+    cout << "+---------------------------+" << endl;
+    cout << "|  6. Listar Inscripciones  |" << endl;
+    cout << "+---------------------------+" << endl;
+    
+    string ci;
+    cout << "Ingrese la Cedula de Socio: ";
+    cin >> ci;
+    cout << endl;
+    try
+    {
+        ListadoInsc(ci);
+    }
+    catch(invalid_argument & e)
+    {
+        cout << e.what() << endl;
+        system("pause");
+    }
+    
+    
+}
+
+void ListadoInsc(string ci){
+    int i = 0;
+    while (i < colSocios.tope && colSocios.s[i]->getCI() != ci)
+    {
+        i++;
+    }
+    if(i == colSocios.tope){
+        throw invalid_argument("El Socio indicado no existe!!\n");
+    }
+    else{
+
+        colSocios.s[i]->imprimirInscr();
+        cout << endl;
+        system("pause");
+    }
+    
+    
+}
+
+void menuBorrarInscripcion(){
+    system("clear");
+    cout << "+---------------------------+" << endl;
+    cout << "|  7. Eliminar Inscripcion  |" << endl;
+    cout << "+---------------------------+" << endl;
+    // Funcion para eliminar un nueva Inscripción
+    int op;
+    cout << "Desea eliminar una inscripcion ? Si = 1 No = 2: ";
+    cin >> op;
+
+    if(op == 1){
+        string ci;
+        int id;
+        cout << "Ingrese la CI del Socio: ";
+        cin >> ci;
+        cout << endl;
+        cout << "Ingrese la ID de la Clase: ";
+        cin >> id;
+        cout << endl;
+
+        try
+        {
+            borrarInscripcion(ci,id);
+        }
+        catch(invalid_argument& e)
+        {
+            cout << e.what() << endl;
+            system("pause");
+        }
+    }
+    else if(op == 2){
+        cout << "Entonces se equivco de opcion :(" << endl;
+        system("pause");
+    }
+    else{
+        cout << "Opciones validas: 1 o 2" << endl;
+        system("pause");
+    }
+    
+
+}
+
+void borrarInscripcion(string ciSocio, int idClase){
+    int i = 0;
+    while (i < colSocios.tope && colSocios.s[i]->getCI() != ciSocio)
+    {
+        i++;
+    }
+
+    int j = 0;
+    while (j < colClases.tope && colClases.c[j]->getId() != idClase)
+    {
+        j++;
+    }
+    
+    if(i == colSocios.tope && j == colClases.tope){
+        throw invalid_argument("No existen la clase ni el socio indicados!!\n");
+    }
+    else if(i == colSocios.tope){
+        throw invalid_argument("No existe el socio con la cedula indicada!!\n");
+    }
+    else if(j == colClases.tope){
+        throw invalid_argument("No existe la clase con el id indicado!!\n");
+    }
+    else if(!colSocios.s[i]->existeInscripcion(idClase)){
+        throw invalid_argument("Este socio no esta inscripto en esa clase!!\n");
+    }
+    else{
+        colClases.c[j]->eliminarSocio();
+        cout << colClases.c[j]->cupo() << endl;
+        colSocios.s[i]->eliminarInscripcion(idClase);
+        cout << "Inscripcion eliminada correctamente" << endl;
+        cout << endl;
+        system("pause");
+    }
+    
 }
 
 int main(){
@@ -426,20 +538,10 @@ int main(){
                 menuAgregarInsc();
                 break;
             case 6:
-                system("clear");
-                cout << "+---------------------------+" << endl;
-                cout << "|  6. Listar Inscripciones  |" << endl;
-                cout << "+---------------------------+" << endl;
-                // Funcion para agregar un nueva Inscripción
-                system("pause");
+                menuListarInsc();
                 break;
             case 7:
-                system("clear");
-                cout << "+---------------------------+" << endl;
-                cout << "|  7. Eliminar Inscripcion  |" << endl;
-                cout << "+---------------------------+" << endl;
-                // Funcion para agregar un nueva Inscripción
-                system("pause");
+                menuBorrarInscripcion();
                 break;
             case 8:
                 system("clear");

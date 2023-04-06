@@ -52,12 +52,10 @@ void Socio::agregarInscripcion(Inscripcion * ins){
 //Se evalua si existe ya una inscripcion del socio al id proporcionado
 bool Socio::existeInscripcion(int id){
     int i = 0;
-    cout << this->cantInsc << endl;
     while (i < this->cantInsc && !this->ins[i]->isEquals(id))
     {
         i++;
     }
-    cout << "i: " << i << "cant: " << this->cantInsc << endl;
 
     if(i == this->cantInsc){
         return false;
@@ -67,3 +65,35 @@ bool Socio::existeInscripcion(int id){
     }
     
 }
+
+void Socio::imprimirInscr(){
+    
+    if(this->cantInsc == 0){
+        throw invalid_argument("No tienes inscripciones aun!!\n");
+    }
+    else{
+        for (int i = 0; i < this->cantInsc; i++){
+            cout << "+-------Inscripcion " << i << "-------+" << endl;
+            cout << "Fecha: ";
+            this->ins[i]->getFecha().toString();
+            cout << "+---------------------------+" << endl;
+            cout << "+-----------Datos-----------+" << endl;
+            cout << "Nombre del Socio: " << this->getNombre() << endl;
+            this->ins[i]->imprimirClase();
+        }
+    }
+}
+
+void Socio::eliminarInscripcion(int idClase){
+    for (int i = 0; i < this->cantInsc; i++){
+        bool isDelete = this->ins[i]->eliminarInscripcion(idClase);
+        //Si la clase se eliminó entonces tambien elimino la inscripción
+        if(isDelete){
+            this->ins[i]=this->ins[this->cantInsc-1];
+            this->ins[this->cantInsc-1]=NULL;
+            delete this->ins[this->cantInsc-1];
+            this->cantInsc--;
+        }
+    }
+    
+};

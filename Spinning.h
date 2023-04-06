@@ -15,13 +15,17 @@ class Spinning : public Clase
         /// @param t El turno de la Clase (Mañana, Tarde, Noche)
         /// @param cantB Cantidad de Bicis
         Spinning(int id, string nom, Turno t, int cantB);
-        /// @brief Constructo de copia
+        /// @brief Constructor de copia
         /// @param  const Clase de copia
         Spinning(const Spinning &);
         int getCantBic();
         void setCantBic(int cnt);
-        int cupo();
         ~Spinning();
+        
+        void agregarSocio();
+        void eliminarSocio();
+        int cupo();
+        
 };
 
 #endif

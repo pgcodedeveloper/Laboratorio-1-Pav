@@ -28,10 +28,12 @@ class Socio
         string getNombre();
         void setCI(string ci);
         void setNombre(string nom);
+        void imprimirInscr();
         ~Socio();
 
         int getCantInsct();
         void agregarInscripcion(Inscripcion * ins);
+        void eliminarInscripcion(int idClase);
         bool existeInscripcion(int id);
 };
 

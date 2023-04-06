@@ -1,5 +1,9 @@
 #include "Clase.h"
+#include "Socio.h"
 
+Clase::Clase(){
+    
+}
 Clase::Clase(int id, string nom, Turno t)
 {
     this->Id = id;
@@ -38,3 +42,11 @@ void Clase::setNombre(string nom){
 void Clase::setTurno(Turno t){
     this->turno = t;
 };
+void Clase::agregarSocioClase(Socio * s){
+    this->so[this->cantSocios] = s;
+    this->cantSocios++;
+}
+int Clase::getCantSociosClase(){
+    return this->cantSocios;
+}
+

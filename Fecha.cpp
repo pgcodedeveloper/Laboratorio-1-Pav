@@ -1,5 +1,5 @@
-#include "Fecha.h"
-#include <stdexcept>   
+#include "Fecha.h"  
+#include "iostream"
 
 using namespace std;
 
@@ -49,6 +49,10 @@ void Fecha::setAnio(int a){
     }
     this->anio = a;
 };
+
+void Fecha::toString(){
+    cout << this->dia << "/" << this->mes << "/" << this->anio << endl;
+}
 
 Fecha::~Fecha()
 {

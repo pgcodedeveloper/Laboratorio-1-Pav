@@ -1,6 +1,8 @@
 #ifndef CLASE_H
 #define CLASE_H
+#define MAX_SOCIOS_INSC 20
 #include "string"
+#include "Socio.h"
 #include "Turno.h"
 
 using namespace std;
@@ -11,7 +13,10 @@ private:
     /* data */
     int Id;
     string Nombre;
-    Turno turno;
+    Turno turno;    
+    /* pseudoatributos */
+    Socio * so[MAX_SOCIOS_INSC];
+    int cantSocios = 0;
 public:
     Clase();
     /// @brief Constructor común
@@ -28,6 +33,8 @@ public:
     void setId(int id);
     void setNombre(string nom);
     void setTurno(Turno t);
+    void agregarSocioClase(Socio * s);
+    int getCantSociosClase();
     virtual int cupo() = 0;
     ~Clase();
 };

@@ -2,7 +2,7 @@
 #define SOCIO_H
 #define MAX_INSC 20
 #include "string"
-#include "Inscripcion.h"
+class Inscripcion;
 
 using namespace std;
 

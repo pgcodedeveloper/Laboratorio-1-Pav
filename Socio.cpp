@@ -1,4 +1,8 @@
+
+#include <iostream>
 #include "Socio.h"
+#include "Inscripcion.h"
+
 
 Socio::Socio(){
 

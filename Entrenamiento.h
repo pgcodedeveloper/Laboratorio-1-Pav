@@ -1,12 +1,17 @@
 #ifndef ENTRENAMIENTO_H
 #define ENTRENAMIENTO_H
+#define MAX_SOCIOS_CLASE 20
 #include "Clase.h"
+#include "Socio.h"
 
 class Entrenamiento : public Clase
 {
     private:
         /* data */
         bool enRambla;
+        /* pseudoatributos */
+        Socio * so[MAX_SOCIOS_CLASE];
+        int cantSocios = 0;
     public:
         Entrenamiento();
         /// @brief Constructor común

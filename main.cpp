@@ -48,10 +48,11 @@ void menuAgregarSocio(){
     string ci, nombre;
     cout << "Ingrese el nombre del Socio: ";
     cin >> nombre;
-    cout << "Ingrese la Cedula del Socio: ";
+    cout << "Ingrese la Cedula del Socio: ";    
     cin >> ci;
+    
     try
-    {
+    {        
         agregarSocio(ci, nombre);
         cout << "Socio agregado correctamente!" << endl;
         system("pause");
@@ -348,13 +349,33 @@ void agregarInscripcion(string ciSocio, int idClase, Fecha fecha){
         throw invalid_argument("Este socio ya esta inscripto en esa clase!!\n");
     }
     else{
-        cout << colClases.c[j]->getId() << endl;
+
+        /*cout << colClases.c[j]->getId() << endl;
+        cout << colSocios.s[i]->getCI() << endl;
+        cout << "Cantidad de inscriptos: " << endl;
+        cout << colClases.c[j]->getCantSociosClase() << endl;*/
+
+        // Chequear si la clase tiene cupos 
+        if(colClases.c[j]->getCantSociosClase() < colClases.c[j]->cupo()){
+            Inscripcion * insc = new Inscripcion(fecha, colClases.c[j]);
+            Socio * soc = new Socio(colSocios.s[i]->getCI(), colSocios.s[i]->getNombre());
+            colSocios.s[i]->agregarInscripcion(insc);
+            colClases.c[j]->agregarSocioClase(soc);
+            cout << "Inscripcion agregada correctamente" << endl;
+            insc->getFecha().toString();
+            system("pause");
+        }
+        else{
+            throw invalid_argument("No hay más cupos disponibles para esta clase :(");
+        } 
+        
+        /*cout << colClases.c[j]->getId() << endl;
         cout << colSocios.s[i]->getCI() << endl;
         Inscripcion * insc = new Inscripcion(fecha, colClases.c[j]);
         colSocios.s[i]->agregarInscripcion(insc);
         cout << "Inscripcion agregada correctamente" << endl;
         insc->getFecha().toString();
-        system("pause");
+        system("pause");*/
     }
     //Falta evaluar el tema de los cupos.
 }
@@ -367,7 +388,9 @@ int main(){
     system("pause");
     int opcion = 0;
     do{
+
         system("clear");
+
         cout << "+--------------------------+" << endl;
         cout << "|   Opciones disponibles   |" << endl;
         cout << "+--------------------------+" << endl;

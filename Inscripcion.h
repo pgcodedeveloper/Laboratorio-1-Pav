@@ -2,9 +2,10 @@
 #define INSCRIPCION_H
 #define MAX_SOCIOS_INSC 20
 #define MAX_CLASES_INSC 20
+#include "iostream"
 #include "Fecha.h"
 #include "Clase.h"
-#include "iostream"
+
 
 using namespace std;
 
@@ -15,7 +16,8 @@ class Inscripcion
         Fecha f;
         //pseudoatributos
         Clase * cl[MAX_CLASES_INSC];
-        int cantClases = 0;
+        int cantClases = 0;        
+
     public:
         Inscripcion();
         Inscripcion(Fecha f, Clase *c);

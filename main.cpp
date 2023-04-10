@@ -30,6 +30,7 @@ struct Clases
     int tope = 0;
 } colClases;
 
+int TSistema =  3;
 
 void agregarSocio(string ci, string nombre);
 void menuAgregarSocio();
@@ -46,9 +47,17 @@ void ListadoInsc(string ci);
 void borrarInscripcion(string ciSocio, int idClase);
 void menuBorrarInscripcion();
 void Pause();
+void limpiar();
 
+void limpiar(){
+    if (TSistema == 0){ //linux
+       system("clear");
+    }else{
+        system("cls");
+    }
+}
 void menuAgregarSocio(){
-    system("clear");
+    limpiar();
     cout << "+-----------------------+" << endl;
     cout << "|  1. Agregar un Socio  |" << endl;
     cout << "+-----------------------+" << endl;
@@ -73,7 +82,7 @@ void menuAgregarSocio(){
 }
 
 void menuListarSocios(){
-    system("clear");
+   limpiar();
     cout << "+------------------------+" << endl;
     cout << "|  2. Listar los Socios  |" << endl;
     cout << "+------------------------+" << endl;
@@ -90,10 +99,13 @@ void menuListarSocios(){
 }
 
 void Pause(){
-    string y;
-    cout << endl;
-    cout << "Presione una tecla para continuar.... ";
-    cin >> y;
+    if(TSistema == 0){
+        string y;
+        cout << endl;
+        cout << "Presione una tecla para continuar.... ";
+        cin >> y;
+    }else
+        system("pause");
 }
 
 void ListarSocios(){
@@ -137,7 +149,7 @@ void agregarSocio(string ci, string nombre){
 }
 
 void menuAgregarClase(){
-    system("clear");
+   limpiar();
     cout << "+--------------------+" << endl;
     cout << "|  3. Agregar Clase  |" << endl;
     cout << "+--------------------+" << endl;
@@ -253,7 +265,7 @@ void agregarClase(DtClase& clase){
 
 
 void menuListarClases(){
-    system("clear");
+   limpiar();
     cout << "+------------------------+" << endl;
     cout << "|  4. Listar las Clases  |" << endl;
     cout << "+------------------------+" << endl;
@@ -314,7 +326,7 @@ void ListadoClases(){
 }
 
 void menuAgregarInsc(){
-    system("clear");
+   limpiar();
     cout << "+--------------------------+" << endl;
     cout << "|  5. Agregar Inscripcion  |" << endl;
     cout << "+--------------------------+" << endl;
@@ -389,7 +401,7 @@ void agregarInscripcion(string ciSocio, int idClase, Fecha fecha){
 }
 
 void menuListarInsc(){
-    system("clear");
+   limpiar();
     cout << "+---------------------------+" << endl;
     cout << "|  6. Listar Inscripciones  |" << endl;
     cout << "+---------------------------+" << endl;
@@ -431,7 +443,7 @@ void ListadoInsc(string ci){
 }
 
 void menuBorrarInscripcion(){
-    system("clear");
+   limpiar();
     cout << "+---------------------------+" << endl;
     cout << "|  7. Eliminar Inscripcion  |" << endl;
     cout << "+---------------------------+" << endl;
@@ -517,16 +529,40 @@ void borrarInscripcion(string ciSocio, int idClase){
 }
 
 int main(){
-    
+    char t = '0';
     cout << "+-----------------------+" << endl;
     cout << "| Bienvenido al sistema |" << endl;
     cout << "+-----------------------+" << endl;
+
+    do{
+        cout << "+-----------------------------+" << endl;
+        cout << "| Dinos tu Sistema Operativo: |" << endl;
+        cout << "| 1 - Linux      2 - Windows  |" << endl;
+        cout << "+-----------------------------+" << endl;
+        cout << "OPCION: ";
+        cin >> t;
+        cout << t << endl;
+
+        switch(t){
+            case '1':
+                TSistema = 0;
+                break;
+            case '2':
+                TSistema = 1;
+                break;
+
+            default:
+                cout << "Opcion no valida!!" << endl;
+                break;
+        }
+    }while(TSistema == 3);
+    
     Pause();
     char opcion;
     int op = 0;
     do{
 
-        system("clear");
+       limpiar();
 
         cout << "+--------------------------+" << endl;
         cout << "|   Opciones disponibles   |" << endl;
@@ -569,7 +605,7 @@ int main(){
                 menuBorrarInscripcion();
                 break;
             case '8':
-                system("clear");
+               limpiar();
                 cout << "+------------+" << endl;
                 cout << "|  8. Salir  |" << endl;
                 cout << "+------------+" << endl;

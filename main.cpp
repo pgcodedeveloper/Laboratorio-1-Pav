@@ -64,7 +64,8 @@ void menuAgregarSocio(){
     // Funcion para agregar el socio
     string ci, nombre;
     cout << "Ingrese el nombre del Socio: ";
-    cin >> nombre;
+    cin.ignore();
+    getline(cin, nombre);
     cout << "Ingrese la Cedula del Socio: ";    
     cin >> ci;
     
@@ -102,7 +103,7 @@ void Pause(){
     if(TSistema == 0){
         string y;
         cout << endl;
-        cout << "Presione una tecla para continuar.... ";
+        cout << "Presione una tecla para continuar . . . ";
         cin >> y;
     }else
         system("pause");
@@ -118,6 +119,7 @@ void ListarSocios(){
             cout << "Nombre: " << colSocios.s[i]->getNombre() << endl;
             cout << "CI: " << colSocios.s[i]->getCI() << endl;
         }
+        cout << endl;
         Pause();
     }
     else{
@@ -153,7 +155,7 @@ void menuAgregarClase(){
     cout << "+--------------------+" << endl;
     cout << "|  3. Agregar Clase  |" << endl;
     cout << "+--------------------+" << endl;
-    // Funcion para agregar un nueva Inscripción
+    // Funcion para agregar un nueva Clase
     try
     {
         int id, turno, tipo, cntB, enR;
@@ -164,7 +166,8 @@ void menuAgregarClase(){
         cout << "Id de la Clase: ";
         cin >> id;
         cout << "Nombre de la Clase: ";
-        cin >> nombre;
+        cin.ignore();
+        getline(cin, nombre);
         cout << "Turno?\n1.Manana\n2.Tarde\n3.Noche\nOPCION: ";
         cin >> turno;
 
@@ -213,6 +216,7 @@ void menuAgregarClase(){
                 agregarClase(en);
         }
         cout << "Clase agregada correctamente !!" << endl;
+        cout << endl;
         Pause();
     }
     catch(invalid_argument& e)
@@ -392,6 +396,7 @@ void agregarInscripcion(string ciSocio, int idClase, Fecha fecha){
             cout << "Inscripcion agregada correctamente" << endl;
             cout << "Fecha de la inscripcion: ";
             insc->getFecha().toString();
+            cout << endl;
             Pause();
         }
         else{
@@ -447,23 +452,24 @@ void menuBorrarInscripcion(){
     cout << "+---------------------------+" << endl;
     cout << "|  7. Eliminar Inscripcion  |" << endl;
     cout << "+---------------------------+" << endl;
-    // Funcion para eliminar un nueva Inscripción
-    int op;
+    // Funcion para eliminar una Inscripción
+    string op;
     cout << "Desea eliminar una inscripcion ? Si = 1 No = 2: ";
     cin >> op;
 
-    if(op == 1){
-        string ci;
+    if(op == "1"){
+        string ci, idC;
         int id;
         cout << "Ingrese la CI del Socio: ";
         cin >> ci;
         cout << endl;
         cout << "Ingrese la ID de la Clase: ";
-        cin >> id;
+        cin >> idC;
         cout << endl;
 
         try
         {
+            id = stoi(idC);
             borrarInscripcion(ci,id);
         }
         catch(invalid_argument& e)
@@ -471,8 +477,12 @@ void menuBorrarInscripcion(){
             cout << e.what() << endl;
             Pause();
         }
+        catch(out_of_range & e){
+            cout << e.what() << endl;
+            Pause();
+        }
     }
-    else if(op == 2){
+    else if(op == "2"){
         cout << "Entonces se equivco de opcion :(" << endl;
         Pause();
     }
@@ -482,14 +492,6 @@ void menuBorrarInscripcion(){
     }
     
 
-}
-
-bool IsInteger(char * x){
-    int i = atoi(x);
-	if (i == 0 && strcmp(x, "0") != 0)
-		return false;
-	else
-		return true;
 }
 
 void borrarInscripcion(string ciSocio, int idClase){
@@ -529,7 +531,7 @@ void borrarInscripcion(string ciSocio, int idClase){
 }
 
 int main(){
-    char t = '0';
+    string t;
     cout << "+-----------------------+" << endl;
     cout << "| Bienvenido al sistema |" << endl;
     cout << "+-----------------------+" << endl;
@@ -537,28 +539,42 @@ int main(){
     do{
         cout << "+-----------------------------+" << endl;
         cout << "| Dinos tu Sistema Operativo: |" << endl;
-        cout << "| 1 - Linux      2 - Windows  |" << endl;
+        cout << "|  1 - Linux     2 - Windows  |" << endl;
         cout << "+-----------------------------+" << endl;
         cout << "OPCION: ";
         cin >> t;
-        cout << t << endl;
+        try
+        {
+            int i = stoi(t);
+            switch(i){
+                case 1:
+                    TSistema = 0;
+                    break;
+                case 2:
+                    TSistema = 1;
+                    break;
 
-        switch(t){
-            case '1':
-                TSistema = 0;
-                break;
-            case '2':
-                TSistema = 1;
-                break;
-
-            default:
-                cout << "Opcion no valida!!" << endl;
-                break;
+                default:
+                    cout << "Opcion no valida!!" << endl;
+                    break;
+            }
         }
+        catch(invalid_argument& e)
+        {
+            cout << "Solo se permiten numeros" << endl;
+            
+        }
+        catch(out_of_range& e){
+            cout << "Int fuera de rango" << endl;
+            
+        }
+        
+
+        
     }while(TSistema == 3);
     
     Pause();
-    char opcion;
+    string opcion;
     int op = 0;
     do{
 
@@ -579,47 +595,72 @@ int main(){
         cout << "+--------------------------+" << endl;
         cout << "OPCION: ";
         cin >> opcion;
-        
-        switch (opcion)
+
+        try
         {
-            case '1':
-                menuAgregarSocio();
-                break;
-            
-            case '2':
-                menuListarSocios();
-                break;
-            case '3':
-                menuAgregarClase();
-                break;
-            case '4': 
-                menuListarClases();
-                break;
-            case '5':
-                menuAgregarInsc();
-                break;
-            case '6':
-                menuListarInsc();
-                break;
-            case '7':
-                menuBorrarInscripcion();
-                break;
-            case '8':
-               limpiar();
-                cout << "+------------+" << endl;
-                cout << "|  8. Salir  |" << endl;
-                cout << "+------------+" << endl;
-                break;
-            default:
-                cout << "+---------------------------------------+" << endl;
-                cout << "|           Opcion Incorrecta           |" << endl;
-                cout << "+---------------------------------------+" << endl;
-                opcion = '0';
-                Pause();
-                break;
+            op = stoi(opcion);
+            switch (op)
+            {
+                case 1:
+                    menuAgregarSocio();
+                    break;
+                
+                case 2:
+                    menuListarSocios();
+                    break;
+                case 3:
+                    menuAgregarClase();
+                    break;
+                case 4: 
+                    menuListarClases();
+                    break;
+                case 5:
+                    menuAgregarInsc();
+                    break;
+                case 6:
+                    menuListarInsc();
+                    break;
+                case 7:
+                    menuBorrarInscripcion();
+                    break;
+                case 8:
+                    limpiar();
+                    cout << "+-------------------------+" << endl;
+                    cout << "|  8. Programa Terminado  |" << endl;
+                    cout << "+-------------------------+" << endl;
+                    break;
+                default:
+                    limpiar();
+                    cout << "+---------------------------------------+" << endl;
+                    cout << "|           Opcion Incorrecta           |" << endl;
+                    cout << "+---------------------------------------+" << endl;
+                    op = 0;
+                    Pause();
+                    break;
+            }
+
+        }
+        catch(invalid_argument& e)
+        {
+            limpiar();
+            cout << "+------------------------------------+" << endl;
+            cout << "|    Solamente se aceptan numeros    |" << endl;
+            cout << "+------------------------------------+" << endl;
+            op = 0;
+            Pause();
+        }
+        catch(out_of_range& e){
+            limpiar();
+            cout << "+--------------------------------------+" << endl;
+            cout << "|         Valor fuera de rango         |" << endl;
+            cout << "+--------------------------------------+" << endl;
+            op = 0;
+            Pause();
         }
 
-    } while(opcion != '8');
+    } while(op != 8);
+
+
     return 1;
 }
 

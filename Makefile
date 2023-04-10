@@ -24,5 +24,5 @@ Inscripcion.o: Inscripcion.cpp
 main.o: main.cpp
 
 clean:
-	rm -rf *.o sistema
+	rm -rf *.o sistema sistema.exe
 	clear

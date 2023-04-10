@@ -1,6 +1,6 @@
 #ifndef INSCRIPCION_H
 #define INSCRIPCION_H
-#define MAX_CLASES_INSC 20
+#define MAX_CLASES_INSC 50
 #include "iostream"
 #include "Fecha.h"
 #include "Clase.h"

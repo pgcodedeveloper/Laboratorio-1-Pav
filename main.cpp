@@ -9,10 +9,12 @@
 #include "DtSpinning.h"
 #include "Inscripcion.h"
 #include <typeinfo>
+#include <string.h>
 
 //Constantes de los arreglos
 #define MAX_SOCIOS 20
 #define MAX_CLASES 20
+
 using namespace std;
 
 //Colecciones Globales
@@ -43,6 +45,7 @@ void menuListarInsc();
 void ListadoInsc(string ci);
 void borrarInscripcion(string ciSocio, int idClase);
 void menuBorrarInscripcion();
+void Pause();
 
 void menuAgregarSocio(){
     system("clear");
@@ -60,12 +63,12 @@ void menuAgregarSocio(){
     {        
         agregarSocio(ci, nombre);
         cout << "Socio agregado correctamente!" << endl;
-        system("pause");
+        Pause();
     }
     catch(invalid_argument& e)
     {
         cout << e.what() << endl;
-        system("pause");
+        Pause();
     }
 }
 
@@ -81,11 +84,21 @@ void menuListarSocios(){
     catch(invalid_argument& e)
     {
         cout << e.what() << endl;
-        system("pause");
+        Pause();
     }
+    
+}
+
+void Pause(){
+    string y;
+    cout << endl;
+    cout << "Presione una tecla para continuar.... ";
+    cin >> y;
 }
 
 void ListarSocios(){
+
+
     if(colSocios.tope != 0){
         for (int i = 0; i < colSocios.tope; i++)
         {
@@ -93,12 +106,14 @@ void ListarSocios(){
             cout << "Nombre: " << colSocios.s[i]->getNombre() << endl;
             cout << "CI: " << colSocios.s[i]->getCI() << endl;
         }
-        cout << endl;
-        system("pause");
+        Pause();
     }
     else{
         throw invalid_argument("No hay socios para listar!!\n");
     }
+        
+        
+      
 }
 
 //Función para agregar un nuevo Socio al sistema, tomando como parametros el Nombre y CI
@@ -186,12 +201,12 @@ void menuAgregarClase(){
                 agregarClase(en);
         }
         cout << "Clase agregada correctamente !!" << endl;
-        system("pause");
+        Pause();
     }
     catch(invalid_argument& e)
     {
         cout << e.what() << endl;
-        system("pause");
+        Pause();
     }
 }
 
@@ -250,7 +265,7 @@ void menuListarClases(){
     catch(invalid_argument &e)
     {
         cout << e.what() << endl;
-        system("pause");
+        Pause();
     }
     
 }
@@ -290,7 +305,7 @@ void ListadoClases(){
             }
         }
         cout << endl;
-        system("pause");
+        Pause();
         
     }
     else{
@@ -325,7 +340,7 @@ void menuAgregarInsc(){
     catch(invalid_argument& e)
     {
         cout << e.what() << endl;
-        system("pause");
+        Pause();
     }
 
 }
@@ -365,7 +380,7 @@ void agregarInscripcion(string ciSocio, int idClase, Fecha fecha){
             cout << "Inscripcion agregada correctamente" << endl;
             cout << "Fecha de la inscripcion: ";
             insc->getFecha().toString();
-            system("pause");
+            Pause();
         }
         else{
             throw invalid_argument("No hay mas cupos disponibles para esta clase :(");
@@ -390,7 +405,7 @@ void menuListarInsc(){
     catch(invalid_argument & e)
     {
         cout << e.what() << endl;
-        system("pause");
+        Pause();
     }
     
     
@@ -409,7 +424,7 @@ void ListadoInsc(string ci){
 
         colSocios.s[i]->imprimirInscr();
         cout << endl;
-        system("pause");
+        Pause();
     }
     
     
@@ -442,19 +457,27 @@ void menuBorrarInscripcion(){
         catch(invalid_argument& e)
         {
             cout << e.what() << endl;
-            system("pause");
+            Pause();
         }
     }
     else if(op == 2){
         cout << "Entonces se equivco de opcion :(" << endl;
-        system("pause");
+        Pause();
     }
     else{
         cout << "Opciones validas: 1 o 2" << endl;
-        system("pause");
+        Pause();
     }
     
 
+}
+
+bool IsInteger(char * x){
+    int i = atoi(x);
+	if (i == 0 && strcmp(x, "0") != 0)
+		return false;
+	else
+		return true;
 }
 
 void borrarInscripcion(string ciSocio, int idClase){
@@ -488,7 +511,7 @@ void borrarInscripcion(string ciSocio, int idClase){
         colSocios.s[i]->eliminarInscripcion(idClase);
         cout << "Inscripcion eliminada correctamente" << endl;
         cout << endl;
-        system("pause");
+        Pause();
     }
     
 }
@@ -498,8 +521,9 @@ int main(){
     cout << "+-----------------------+" << endl;
     cout << "| Bienvenido al sistema |" << endl;
     cout << "+-----------------------+" << endl;
-    system("pause");
-    int opcion = 0;
+    Pause();
+    char opcion;
+    int op = 0;
     do{
 
         system("clear");
@@ -522,29 +546,29 @@ int main(){
         
         switch (opcion)
         {
-            case 1:
+            case '1':
                 menuAgregarSocio();
                 break;
             
-            case 2:
+            case '2':
                 menuListarSocios();
                 break;
-            case 3:
+            case '3':
                 menuAgregarClase();
                 break;
-            case 4: 
+            case '4': 
                 menuListarClases();
                 break;
-            case 5:
+            case '5':
                 menuAgregarInsc();
                 break;
-            case 6:
+            case '6':
                 menuListarInsc();
                 break;
-            case 7:
+            case '7':
                 menuBorrarInscripcion();
                 break;
-            case 8:
+            case '8':
                 system("clear");
                 cout << "+------------+" << endl;
                 cout << "|  8. Salir  |" << endl;
@@ -554,12 +578,12 @@ int main(){
                 cout << "+---------------------------------------+" << endl;
                 cout << "|           Opcion Incorrecta           |" << endl;
                 cout << "+---------------------------------------+" << endl;
-                opcion = 0;
-                system("pause");
+                opcion = '0';
+                Pause();
                 break;
         }
 
-    } while(opcion != 8);
+    } while(opcion != '8');
     return 1;
 }
 

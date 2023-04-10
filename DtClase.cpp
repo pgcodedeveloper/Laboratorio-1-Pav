@@ -1,4 +1,10 @@
 #include "DtClase.h"
+#include "DtEntrenamiento.h"
+#include "DtSpinning.h"
+#include "iostream"
+#include <typeinfo>
+
+using namespace std;
 
 DtClase::DtClase()
 {
@@ -34,4 +40,45 @@ void DtClase::setTurno(Turno t){
 
 DtClase::~DtClase()
 {
+};
+
+
+ostream& operator << (ostream& salida,DtClase& clase){
+	
+    try
+    {
+        DtEntrenamiento& en = dynamic_cast<DtEntrenamiento&>(clase);
+        cout << "Id Clase: " << en.getId() << endl;
+        cout << "Nombre: " << en.getNombre() << endl;
+        if(en.getTurno() == MANANA){
+            cout << "Turno: Manana" << endl;
+        } else if(en.getTurno() == TARDE){
+            cout << "Turno: Tarde" << endl;
+        } else if(en.getTurno() == NOCHE){
+            cout << "Turno: Noche" << endl;
+        }
+        if(en.getEnRambla()){
+            cout << "Es en Rambla: SI" << endl; 
+        }
+        else{
+            cout << "Es en Rambla: NO" << endl;
+        }
+        
+    }
+    catch(bad_cast)
+    {
+        DtSpinning& sp = dynamic_cast<DtSpinning&>(clase);
+        cout << "Id Clase: " << sp.getId() << endl;
+        cout << "Nombre: " << sp.getNombre() << endl;
+        if(sp.getTurno() == MANANA){
+            cout << "Turno: Manana" << endl;
+        } else if(sp.getTurno() == TARDE){
+            cout << "Turno: Tarde" << endl;
+        } else if(sp.getTurno() == NOCHE){
+            cout << "Turno: Noche" << endl;
+        }
+        cout << "Cantidad de Bicicletas: " << sp.getCantBic() << endl;
+    }
+    
+	return salida;
 };

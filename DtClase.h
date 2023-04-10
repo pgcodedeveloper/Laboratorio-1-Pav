@@ -27,6 +27,8 @@ class DtClase
         void setNombre(string nom);
         void setTurno(Turno t);
         virtual ~DtClase();
+
+        friend ostream& operator << (ostream&,DtClase&);
 };
 
 

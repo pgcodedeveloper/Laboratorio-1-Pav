@@ -8,6 +8,7 @@
 #include "DtEntrenamiento.h"
 #include "DtSpinning.h"
 #include "Inscripcion.h"
+#include <typeinfo>
 
 //Constantes de los arreglos
 #define MAX_SOCIOS 20

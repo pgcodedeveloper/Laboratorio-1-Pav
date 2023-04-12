@@ -158,13 +158,15 @@ void menuAgregarClase(){
     // Funcion para agregar un nueva Clase
     try
     {
+        string idC;
         int id, turno, tipo, cntB, enR;
         bool enRambla;
         string nombre;
         Turno t;
         /* code */
         cout << "Id de la Clase: ";
-        cin >> id;
+        cin >> idC;
+        id = stoi(idC);
         cout << "Nombre de la Clase: ";
         cin.ignore();
         getline(cin, nombre);
@@ -219,9 +221,12 @@ void menuAgregarClase(){
         cout << endl;
         Pause();
     }
-    catch(invalid_argument& e)
-    {
+    catch(invalid_argument& e){
         cout << e.what() << endl;
+        Pause();
+    }
+    catch(out_of_range& e){
+        cout << "Fuera de rango" << endl;
         Pause();
     }
 }
@@ -336,18 +341,36 @@ void menuAgregarInsc(){
     cout << "+--------------------------+" << endl;
     // Funcion para agregar un nueva Inscripción
     string ci;
+    string idC, diaC, mesC, anioC;
     int id, dia, mes, anio;
     Fecha f;
     cout << "Ingrese la cedula del socio: ";
     cin >> ci;
     cout << "Ingrese el Id de la clase: ";
-    cin >> id;
+    cin >> idC;
     cout << "Ingrese el dia de la inscipcion: ";
-    cin >> dia;
+    cin >> diaC;
     cout << "Ingrese el mes de la inscipcion: ";
-    cin >> mes;
+    cin >> mesC;
     cout << "Ingrese el anio de la inscipcion: ";
-    cin >> anio;
+    cin >> anioC;
+    try
+    {
+        id = stoi(idC);
+        dia = stoi(diaC);
+        mes = stoi(mesC);
+        anio = stoi(anioC);
+    }
+    catch(invalid_argument& e)
+    {
+        cout << "Ingrese solo numeros" << endl;
+        Pause();
+    }
+    catch(out_of_range& e)
+    {
+        cout << "Fuera de rango" << endl;
+        Pause();
+    }   
     try
     {
         f = Fecha(dia, mes, anio);
@@ -483,7 +506,7 @@ void menuBorrarInscripcion(){
         }
     }
     else if(op == "2"){
-        cout << "Entonces se equivco de opcion :(" << endl;
+        cout << "Entonces se equivoco de opcion :(" << endl;
         Pause();
     }
     else{
@@ -521,7 +544,6 @@ void borrarInscripcion(string ciSocio, int idClase){
     }
     else{
         colClases.c[j]->eliminarSocio();
-        cout << colClases.c[j]->cupo() << endl;
         colSocios.s[i]->eliminarInscripcion(idClase);
         cout << "Inscripcion eliminada correctamente" << endl;
         cout << endl;

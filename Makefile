@@ -23,6 +23,10 @@ Inscripcion.o: Inscripcion.cpp
 
 main.o: main.cpp
 
-clean:
-	rm -rf *.o sistema sistema.exe
-	clear
+cleanL:
+	rm -f *.o
+	rm -f sistema
+
+cleanW:
+	del -f *.o
+	del -f sistema.exe

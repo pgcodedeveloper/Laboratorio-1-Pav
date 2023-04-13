@@ -28,11 +28,6 @@ int Inscripcion::getCantClases(){
 };
 
 
-void Inscripcion::agregarInscripcion(Clase *c){
-    this->cl[this->cantClases] = c;
-    this->cantClases++;
-};
-
 //Se evalua si en la coleccion de las clases ya existe una clase con el id proporcionado para luego devolver el resultado a la clase socio
 bool Inscripcion::isEquals(int id){
     int i = 0;
@@ -50,7 +45,6 @@ bool Inscripcion::isEquals(int id){
 }
 
 void Inscripcion::imprimirClase(){
-    //cout << this->getCantClases() << endl;
     for (int i = 0; i < this->cantClases; i++)
     {
         cout << "Id Clase: " << this->cl[i]->getId() << endl;

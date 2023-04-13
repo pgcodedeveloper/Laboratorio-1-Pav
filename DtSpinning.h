@@ -11,10 +11,10 @@ class DtSpinning : public DtClase
     public:
         DtSpinning();
         /// @brief Constructor común
-        /// @param id Id
-        /// @param nom 
-        /// @param t 
-        /// @param cant 
+        /// @param id Id de la Clase
+        /// @param nom Nombre de la Clase
+        /// @param t Turno de la Clase
+        /// @param cant Cantidad de Bicicletas
         DtSpinning(int id, string nom, Turno t, int cant);
         int getCantBic();
         void setCantBic(int cnt);

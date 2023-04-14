@@ -19,6 +19,9 @@ class Inscripcion
 
     public:
         Inscripcion();
+        /// @brief Constructor común
+        /// @param f Fecha de la Inscripción
+        /// @param c Clase de la Inscripción
         Inscripcion(Fecha f, Clase *c);
         Fecha getFecha();
         void setFecha(Fecha f);
@@ -27,7 +30,6 @@ class Inscripcion
 
         int getCantClases();
         bool isEquals(int id);
-        void agregarInscripcion(Clase *c);
         bool eliminarInscripcion(int idClase);
 };
 

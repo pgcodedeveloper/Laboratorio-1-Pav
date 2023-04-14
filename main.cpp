@@ -605,10 +605,15 @@ int main(){
         cout << "+--------------------------+" << endl;
         cout << "|   Opciones disponibles   |" << endl;
         cout << "+--------------------------+" << endl;
+        cout << "|          SOCIOS          |" << endl;
         cout << "| 1) Agregar un Socio.     |" << endl;
         cout << "| 2) Listar los Socios     |" << endl;
+        cout << "|--------------------------|" << endl;
+        cout << "|          CLASES          |" << endl;
         cout << "| 3) Agregar una Clase     |" << endl;
         cout << "| 4) Listar las Clases     |" << endl;
+        cout << "|--------------------------|" << endl;
+        cout << "|      INSCRIPCIONES       |" << endl;
         cout << "| 5) Agregar Inscripcion   |" << endl;
         cout << "| 6) Listar Inscripciones  |" << endl;
         cout << "| 7) Eliminar Inscripcion  |" << endl;

@@ -11,7 +11,7 @@
 #include <typeinfo>
 #include <string.h>
 
-//Constantes de los arreglos
+//Constantes de los arreglos ndsdhddhhdddh
 #define MAX_SOCIOS 20
 #define MAX_CLASES 20
 
